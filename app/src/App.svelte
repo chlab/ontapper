@@ -11,9 +11,9 @@
 			<p class="font-display text-2xl text-center pt-10 text-white">loading awesome taplist</p>
 		{:then taplist}
 			{#each taplist.taplist as beer, tapNr}
-				<div class="flex p-4 text-white font-display">
-					<div class="flex-initial text-right" style="min-width: 4rem">
-						<span class="text-huge align-top">{tapNr + 1}</span>
+				<div class="flex p-3 md:p-4 text-white font-display">
+					<div class="flex-initial text-right min-w-big md:min-w-huge">
+						<span class="text-big md:text-huge align-top">{tapNr + 1}</span>
 					</div>
 					<div class="flex-grow ml-8">
 						<h2 class="text-3xl uppercase">{beer.name}</h2>
@@ -23,7 +23,7 @@
 				</div>
 			{/each}
 		{:catch error}
-			<p class="font-display text-2xl text-center pt-10 text-red-400">loading awesome taplist</p>
+			<p class="font-display text-2xl text-center pt-10 text-red-400">couldn't load taplist :/</p>
 		{/await}
 	</div>
 </main>

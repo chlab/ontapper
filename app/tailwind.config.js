@@ -13,7 +13,12 @@ module.exports = {
         display: ['Cabin Sketch']
       },
       fontSize: {
+        'big': '4rem',
         'huge': '5rem'
+      },
+      minWidth: {
+        'big': '3rem',
+        'huge': '4rem'
       }
     }
   },

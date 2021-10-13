@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     export let taplist = [];
 
-    async function subscribeToBrewery(brewery) {
+    async function subscribeToBrewery(brewery: string) {
         const result = await Notification.requestPermission();
         if (result === 'granted') {
             console.log('subscribe');
@@ -21,7 +21,7 @@
                 <h2 class="text-3xl tap-text uppercase">
                     {beer.name}
                 </h2>
-                <button class="block tap-text font-bold text-2xl" on:click="{subscribeToBrewery(beer.brewery)}">
+                <button class="block tap-text font-bold text-2xl" on:click="{() => subscribeToBrewery(beer.brewery)}">
                     {beer.brewery}
                 </button>
                 <span class="block tap-text text-xl">

@@ -5,5 +5,8 @@ module.exports = {
         postcss: {
             plugins: [require('tailwindcss'), require('autoprefixer')],
         },
+        defaults: {
+            script: 'typescript',
+        },
     }),
 };

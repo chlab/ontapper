@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import './Tailwind.svelte';
 	import Taplist from './components/Taplist.svelte';
 	import Skeleton from './components/Skeleton.svelte';
@@ -11,7 +11,7 @@
 
 <main class="min-h-screen">
 
-	<div class="container mx-auto">
+	<div class="container mx-auto md:w-1/2">
 		{#await getTaplist()}
 			<Skeleton/>
 			<Skeleton/>

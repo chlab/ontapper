@@ -1,5 +1,14 @@
 <script>
     export let taplist = [];
+
+    async function subscribeToBrewery(brewery) {
+        const result = await Notification.requestPermission();
+        if (result === 'granted') {
+            console.log('subscribe');
+        } else {
+            console.log('show error');
+        }
+    }
 </script>
 
 <div class="divide-gray-300 divide-y-2 divide-solid">
@@ -12,7 +21,9 @@
                 <h2 class="text-3xl tap-text uppercase">
                     {beer.name}
                 </h2>
-                    <button class="block tap-text font-bold text-2xl">{beer.brewery}</button>
+                <button class="block tap-text font-bold text-2xl" on:click="{subscribeToBrewery(beer.brewery)}">
+                    {beer.brewery}
+                </button>
                 <span class="block tap-text text-xl">
                     {beer.style} ({beer.abv}%)
                 </span>

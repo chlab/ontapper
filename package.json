@@ -1,0 +1,23 @@
+{
+  "name": "ontapper",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "concurrently \"cd app && npm run dev\" \"swa start http://localhost:5000 --api-location api\"",
+    "build:prod": "cd app && npm run build",
+    "serve:prod": "npm run build:prod && swa start app/public --api-location api"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chlab/ontapper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chlab/ontapper/issues"
+  },
+  "homepage": "https://github.com/chlab/ontapper#readme",
+  "devDependencies": {
+    "@azure/static-web-apps-cli": "^0.8.0",
+    "concurrently": "^6.3.0"
+  }
+}

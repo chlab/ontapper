@@ -1,6 +1,7 @@
 import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
+import { authState } from 'rxfire/auth';
+
 import { app } from './firebase';
-import { readable } from 'svelte/store';
 
 export function initAuth() {
     const auth = getAuth(app);
@@ -9,17 +10,5 @@ export function initAuth() {
             console.error('Could not sign in anonymously', error.message, error.code);
         });
 
-    const user = readable(null, set => {
-        return onAuthStateChanged(auth, fireUser => {
-            if (fireUser) {
-                set(fireUser);
-            } else {
-                set(null);
-            }
-        });
-    });
-
-    return {
-        user
-    }
+    return authState(auth);
 }

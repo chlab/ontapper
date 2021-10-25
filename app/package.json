@@ -36,6 +36,8 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "firebase": "^9.1.3"
+    "firebase": "^9.1.3",
+    "rxfire": "^6.0.3",
+    "rxjs": "^7.4.0"
   }
 }

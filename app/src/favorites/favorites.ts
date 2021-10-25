@@ -2,7 +2,7 @@ import { getDatabase, ref, set } from 'firebase/database';
 import { object } from 'rxfire/database';
 import { map } from 'rxjs';
 
-export async function addFavorite(userId, brewery) {
+export async function addFavorite(userId: string, brewery: string) {
     const db = getDatabase();
     return set(ref(db, `favorites/${userId}`), brewery);
 }

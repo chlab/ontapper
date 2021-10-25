@@ -12,3 +12,7 @@ export function initAuth() {
 
     return authState(auth);
 }
+
+export interface User {
+    uid: string;
+}

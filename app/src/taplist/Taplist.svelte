@@ -1,22 +1,14 @@
 <script lang="ts">
-    import { Observable, switchMap, combineLatest, map, startWith } from 'rxjs';
-    import { ajax } from 'rxjs/ajax';
+    import { Observable, switchMap, combineLatest, map, startWith, tap } from 'rxjs';
 
-    import { default as FavoriteIcon } from './icons/Favorite.svelte';
-    import { initAuth } from '../auth';
+    import { default as FavoriteIcon } from '../components/icons/Favorite.svelte';
     import { addFavorite, fetchFavorites } from '../favorites/favorites';
+    import { fetchTaplist, TapListEntry } from './taplist';
+    import type { User } from '../auth';
 
-    interface TapListEntry {
-        name: string;
-        brewery: string;
-        style: string;
-        abv: number;
-        isFavorite: boolean;
-    }
+    export let user: Observable<User>;
 
-    // setup our sources
-    const user = initAuth();
-    const beers = ajax.getJSON('/api/taplist')
+    const beers = fetchTaplist();
     const favs = user.pipe(
         switchMap(user => fetchFavorites(user.uid))
     );
@@ -32,8 +24,8 @@
     );
 
     async function toggleFavBrewery(userId: string, brewery: string) {
+        console.log(userId);
         const response = await addFavorite(userId, brewery);
-        console.log(response);
     }
 </script>
 
@@ -55,7 +47,7 @@
                 </span>
             </div>
             <div class="text-white w-8 pt-4">
-                <button class="cursor-pointer" on:click="{() => toggleFavBrewery('zEbihVadZYPIpUvlRGPeHBB158B3', beer.brewery)}">
+                <button class="cursor-pointer" on:click="{() => toggleFavBrewery($user.uid, beer.brewery)}">
                     <FavoriteIcon solid="{beer.isFavorite}" />
                 </button>
             </div>

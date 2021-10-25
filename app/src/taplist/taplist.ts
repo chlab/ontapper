@@ -1,12 +1,10 @@
-import type { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 
-export function fetchTaplist(): Observable<TaplistResponse> {
-    return ajax.getJSON('/api/taplist')
-}
-
-export interface TaplistResponse {
-    taplist: [TapListEntry];
+export function fetchTaplist(): Observable<[TapListEntry]> {
+    return ajax.getJSON('/api/taplist').pipe(
+        map((t: {taplist: [TapListEntry]}) => t.taplist)
+    )
 }
 
 export interface TapListEntry {

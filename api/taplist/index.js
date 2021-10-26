@@ -9,7 +9,7 @@ module.exports = async function (context) {
             name: taplist[`biername${i}`],
             abv: taplist[`abv${i}`],
             style: taplist[`bierstil${i}`],
-            brewery: taplist[`brauerei${i}`],
+            brewery: taplist[`brauerei${i}`].trim(),
             country: taplist[`herkunft${i}`]
         });
     }

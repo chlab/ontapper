@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Observable, switchMap, combineLatest, map, startWith, tap } from 'rxjs';
+    import { Observable, switchMap, combineLatest, map, startWith } from 'rxjs';
 
     import { default as FavoriteIcon } from '../components/icons/Favorite.svelte';
     import { toggleFavorite, fetchFavorites } from '../favorites/favorites';
@@ -9,7 +9,7 @@
     export let user: Observable<User>;
 
     const favs = user.pipe(
-        switchMap(user => fetchFavorites(user.uid))
+        switchMap(u => fetchFavorites(u.uid))
     );
 
     const taplist = combineLatest([fetchTaplist(), favs]).pipe(

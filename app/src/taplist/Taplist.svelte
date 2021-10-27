@@ -16,14 +16,14 @@
         map(([taplist, favs]) => {
             return taplist.map(tap => ({
                 ...tap,
-                isFavorite: favs.includes(tap.brewery)
+                isFavorite: favs.some(fav => tap.brewery === fav.brewery)
             } as TapListEntry))
         }),
         startWith([])
     );
 
     async function toggleFavBrewery(brewery: string) {
-        const response = await toggleFavorite($user.uid, $favs, brewery);
+        toggleFavorite($user.uid, $favs, brewery);
     }
 </script>
 

@@ -1,22 +1,30 @@
-import { getFirestore, collection, query, where } from 'firebase/firestore';
+import { getFirestore, collection, query, where, addDoc, deleteDoc, doc } from 'firebase/firestore';
 import { collectionData } from 'rxfire/firestore';
-import { map, Observable, tap } from 'rxjs';
+import type { Observable } from 'rxjs';
 
 import { app } from '../firebase';
 
-const toggleArrItem = (arr: any[], item: any) => arr.includes(item) ? arr.filter(i => i !== item) : [ ...arr, item ];
-
-// todo: get rid of array as firebase doesn't like arrays
-export async function toggleFavorite(uid: string, favorties: string[], brewery: string) {
-    // const db = getDatabase();
-    // // const favs = toggleArrItem(favorties, brewery);
-    // return push(ref(db, `favorites/${uid}`), brewery);
+export async function toggleFavorite(userId: string, favs: Favorite[], brewery: string) {
+    const fav = favs.find(fav => fav.brewery === brewery);
+    const db = getFirestore(app);
+    if (!fav) {
+        return addDoc(collection(db, 'favorites'), {
+            brewery,
+            userId
+        })
+    } else {
+        return deleteDoc(doc(db, 'favorites', fav.id));
+    }
 }
 
 export function fetchFavorites(uid: string) {
     const db = getFirestore(app);
     const q = query(collection(db, 'favorites'), where('userId', '==', uid));
-    return collectionData(q).pipe(
-        map(docs => docs.map(d => d.brewery))
-    );
+    return collectionData(q, { idField: 'id' }) as Observable<Favorite[]>;
+}
+
+export interface Favorite {
+    id: string;
+    brewery: string;
+    userId: string;
 }

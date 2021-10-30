@@ -2,9 +2,9 @@
   "name": "ontapper",
   "version": "0.0.1",
   "scripts": {
-    "start": "concurrently \"cd app && npm run dev\" \"swa start http://localhost:5000 --api-location api\"",
+    "start": "concurrently \"cd app && npm run dev\" \"swa start https://localhost:5000 --api-location api --ssl --ssl-cert dev/cert.pem --ssl-key dev/key.pem\"",
     "build:prod": "cd app && npm run build",
-    "serve:prod": "npm run build:prod && swa start app/public --api-location api"
+    "serve:prod": "npm run build:prod && swa start app/public --api-location api --ssl"
   },
   "repository": {
     "type": "git",

@@ -7,7 +7,7 @@
     "clean": "rimraf public/build",
     "compile": "cross-env NODE_ENV=production rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear",
+    "start": "sirv public --no-clear --http2 --cert ../dev/cert.pem --key ../dev/key.pem",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
@@ -38,6 +38,7 @@
   "dependencies": {
     "firebase": "^9.1.3",
     "rxfire": "^6.0.3",
-    "rxjs": "^7.4.0"
+    "rxjs": "^7.4.0",
+    "svelte-observable": "^0.4.0"
   }
 }

@@ -14,13 +14,14 @@
         switchMap(u => fetchFavorites(u.uid))
     );
 
-    const taplist = observe<TapListEntry[]>(combineLatest([fetchTaplist(), favs]).pipe(
+    const taplistWithFavorites = combineLatest([fetchTaplist(), favs]).pipe(
         map(([taplist, favs]) => {
             return taplist.map(tap => ({
                 ...tap,
                 isFavorite: favs.some(fav => tap.brewery === fav.brewery)
-            } as TapListEntry))
-        })));
+            }))
+        }));
+    const taplist = observe<TapListEntry[]>(taplistWithFavorites);
 
     async function toggleFavBrewery(brewery: string) {
         toggleFavorite($user.uid, $favs, brewery);
@@ -29,10 +30,10 @@
 
 <div class="divide-gray-300 divide-y-2 divide-solid">
     {#await $taplist}
-        <div class="vertical-spacing opacity-20"><Skeleton /></div>
-        <div class="vertical-spacing opacity-20"><Skeleton /></div>
-        <div class="vertical-spacing opacity-20"><Skeleton /></div>
-        <div class="vertical-spacing opacity-20"><Skeleton /></div>
+        <div class="vertical-spacing opacity-20"><Skeleton/></div>
+        <div class="vertical-spacing opacity-20"><Skeleton/></div>
+        <div class="vertical-spacing opacity-20"><Skeleton/></div>
+        <div class="vertical-spacing opacity-20"><Skeleton/></div>
     {:then taplist}
         {#each taplist as beer, tapNr}
             <div class="flex flex-grow md:space-x-10 space-x-4 wrapper vertical-spacing pr-2 md:pr-4">
